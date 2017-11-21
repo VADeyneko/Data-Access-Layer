@@ -1,0 +1,7 @@
+INSERT INTO VACATION.VACATIONTYPE (ID, "NAME") 
+	VALUES (1, 'Ежегодный отпуск');
+INSERT INTO VACATION.VACATIONTYPE (ID, "NAME") 
+	VALUES (2, 'Отпуск за свой счет');
+INSERT INTO VACATION.VACATIONTYPE (ID, "NAME") 
+	VALUES (3, 'Дополнительный отпуск');
+
