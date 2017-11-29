@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -157,6 +159,38 @@ public class Request implements Serializable {
 
     public void setManagerComment(String managerComment) {
         this.managerComment = managerComment;
+    }
+    
+    public String getFormatedDateBegin() {
+           return  formatDate(dateBegin);
+    }
+    
+        
+    public String getFormatedDateEnd() {          
+         return  formatDate(dateEnd);  
+    }
+    
+    public static String getNewRequestDefaultDate(){
+           java.util.Date date =  java.util.Date.from(Instant.now());
+           SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");             
+           return formatter.format(date);            
+    }
+            
+    private String formatDate(java.sql.Date date){
+          SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");             
+          String result = formatter.format(date);
+         return result  ;
+    }
+    
+    public void updateWithRequest(Request reqToClone){
+        this.setDateBegin(reqToClone.getDateBegin());
+        this.setDateEnd(reqToClone.getDateEnd());
+        this.setManager(reqToClone.getManager());
+        this.setOwner(reqToClone.getOwner());
+        this.setRequestState(reqToClone.getRequestState());
+        this.setVacationType(reqToClone.getVacationType());
+        this.setOwnerComment(reqToClone.getOwnerComment());
+        this.setManagerComment(reqToClone.getManagerComment());          
     }
 
 }

@@ -25,7 +25,7 @@ public class RequestStateDao   extends AbstractDao<RequestState> {
         super(RequestState.class);
     }
 
-       
+    ///////////убрать   
     @Override
     public RequestState find(Object id) {
         try {
