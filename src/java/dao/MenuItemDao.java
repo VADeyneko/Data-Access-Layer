@@ -5,19 +5,20 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import model.MenuItem;
  
-import model.UserGroup;
+ 
 
 @Stateless
-public class UserGroupDao  extends AbstractDao<UserGroup>{
+public class MenuItemDao  extends AbstractDao<MenuItem>{
     
     
     
     @PersistenceContext(unitName = "Data_Access_LayerPU")
     private EntityManager em;
     
-    public UserGroupDao() {
-        super(UserGroup.class);
+    public MenuItemDao() {
+        super(MenuItem.class);
     }
 
     @Override
@@ -27,17 +28,12 @@ public class UserGroupDao  extends AbstractDao<UserGroup>{
     
   
     @Override
-    public List<UserGroup> all() {
+    public List<MenuItem> all() {
         return super.all(); 
     }
 
     @Override
-    public UserGroup find(Object id) {        
-        try{
-         return super.find(id);
-        }catch (Exception e) {
-            e.printStackTrace();
-    }
+    public MenuItem find(Object id) {        
          return super.find(id);
     }
     

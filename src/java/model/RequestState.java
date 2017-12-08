@@ -2,16 +2,18 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -36,18 +38,41 @@ public class RequestState implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @JoinColumn(nullable = true, unique = false,name = "previousState_id")
-    @OneToOne
-    private RequestState previousState;
-    
-    @JoinColumn(nullable = true, unique = false,name = "nextState_id")
-    @OneToOne
-    private RequestState nextState;
-    
+        
     @Column(name = "name",unique = true)
     private String name;
+    
+    @Column(name = "isManagerState",unique = false)
+    private int isManagerState;
+    
+   @Column(name = "glyphoiconName",unique = false)
+    private String  glyphoiconName;
+    
+   @ManyToMany(cascade = CascadeType.ALL ) 
+    private Collection<RequestState> possibleStates;
 
+    public Collection<RequestState> getPossibleStates() {
+        return possibleStates;
+    } 
+
+    /*method is overloaded for getting manager-only or user-only states*/
+    public Collection<RequestState> getPossibleStates(boolean byManager) {
+       Collection<RequestState> stateList = new LinkedList<>();
+       
+       if(byManager)
+            for(RequestState s : possibleStates){
+                if(s.isManagerState == 1 ||possibleStates.size() == 1)  //для менеджера - минимум 1 состояние доступно
+                     stateList.add(s);
+           
+        } else {
+            for(RequestState s : possibleStates){
+                 if(s.isManagerState == 0 && this.isManagerState == 0)  //для не менджера - более 2х состояний только в черновике
+                      stateList.add(s);                                              
+             }       
+       } 
+       return stateList;
+    }
+       
     public Long getId() {
         return id;
     }
@@ -55,6 +80,16 @@ public class RequestState implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public int getIsManagerState() {
+        return isManagerState;
+    }
+
+    public String getGlyphoiconName() {
+        return glyphoiconName;
+    }
+        
+    
 
     public String getName() {
         return PREDEFINED_ELEMENTS.getString(name)   ;   
@@ -85,14 +120,6 @@ public class RequestState implements Serializable {
         return "model.RequestState[ id=" + id + " ]";
     }
 
-    public RequestState getPreviousState() {
-        return previousState;
-    }
-
-    public RequestState getNextState() {
-        return nextState;
-    }
-    
-    
+ 
     
 }

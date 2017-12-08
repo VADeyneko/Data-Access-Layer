@@ -25,15 +25,10 @@ public class RequestStateDao   extends AbstractDao<RequestState> {
         super(RequestState.class);
     }
 
-    ///////////убрать   
+    
     @Override
     public RequestState find(Object id) {
-        try {
-            return super.find(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return super.find(id);
+            return super.find(id); 
     }    
     
      public List<RequestState> getInitialStateList () {
