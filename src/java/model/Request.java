@@ -49,8 +49,17 @@ import javax.persistence.Table;
                     + " or :dDateEnd between r.dateBegin and r.dateEnd"
                     + " or  :dDateBegin between r.dateBegin and r.dateEnd)"
    )
+   ,@NamedQuery(
+            name = "get-criteria-report",
+            query = "SELECT r FROM Request r  where r.isHistoryEntity = 0 "
+                    + " and (r.vacationType.id = :vacationTypeId or :vacationTypeId = -1)"
+                    + " and ( r.manager.id = :managerId or :managerId = -1 )"
+                    + " and (r.owner.id = :ownerId  or :ownerId  = -1 )"
+                    + " and ( r.requestState.id = :requestStateId  or :requestStateId = -1 )"
+                    + " and r.dateBegin between :dBegin and  :dEnd "
+   )        
 })
-public class Request implements Serializable {
+public class Request implements Serializable { //get-criteria-report
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

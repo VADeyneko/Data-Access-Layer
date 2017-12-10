@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -60,13 +61,28 @@ public class RequestDao extends AbstractDao<Request> {
         return query.getResultList();
     }
      
-     // отпуска по сотруднику не должны пересекаться сами с собой. 
+     // Requests from one oner shouldn't intersect with each other
      public List<Request> findOwnerIntersections(java.sql.Date dBegin, java.sql.Date dEnd, User owner) {
         TypedQuery<Request> query = em.createNamedQuery("get-owner-intersecting-requests", Request.class);
 
         query.setParameter("owner", owner);
         query.setParameter("dDateBegin", dBegin);
         query.setParameter("dDateEnd", dEnd);  
+        
+        return query.getResultList();
+    }
+     
+    // Requests from one oner shouldn't intersect with each other
+     public List<Request> getReport(Long vacationTypeId, Long managerId, Long ownerId, Long requestStateId, Date dBegin, Date dEnd) {
+        TypedQuery<Request> query = em.createNamedQuery("get-criteria-report", Request.class);
+
+        query.setParameter("vacationTypeId",  vacationTypeId);
+        query.setParameter("managerId",  managerId);
+        query.setParameter("ownerId",  ownerId);
+        query.setParameter("requestStateId",  requestStateId);
+        query.setParameter("dBegin",  dBegin);
+        query.setParameter("dEnd",  dEnd);
+        
         
         return query.getResultList();
     }
