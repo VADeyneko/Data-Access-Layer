@@ -26,11 +26,7 @@ public class VacationTypeDao   extends AbstractDao<VacationType> {
        
     @Override
     public VacationType find(Object id) {
-        try {
-            return super.find(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
         return super.find(id);
     }    
     

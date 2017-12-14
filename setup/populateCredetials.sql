@@ -1,14 +1,20 @@
 INSERT INTO VACATION.CREDENTIALS (EMAIL, PASSWORD) 
-	VALUES ('vdeyneko@gmail.com', 'vd');
+	VALUES ('vdeyneko@gmail.com',  'eЅCЩК¦а,™
+‚e-К');
+
  INSERT INTO VACATION.USERS (LASTNAME, "NAME", CREDENTIALS_ID, USERGROUP_ID) 
 	VALUES ('Виктор', 'Дейнеко', 1, 3);
 
 INSERT INTO VACATION.CREDENTIALS (EMAIL, PASSWORD) 
-	VALUES ('mmm@gmail.com', 'mmm');
+	VALUES ('mmm@gmail.com',  'eЅCЩК¦а,™
+‚e-К');
+
  INSERT INTO VACATION.USERS (LASTNAME, "NAME", CREDENTIALS_ID, USERGROUP_ID) 
 	VALUES ('Менский', 'Михаил', 2, 1);
 
 INSERT INTO VACATION.CREDENTIALS (EMAIL, PASSWORD) 
-	VALUES ('aaa@gmail.com', 'aaa');
+	VALUES ('aaa@gmail.com',  'eЅCЩК¦а,™
+‚e-К');
+
  INSERT INTO VACATION.USERS (LASTNAME, "NAME", CREDENTIALS_ID, USERGROUP_ID) 
 	VALUES ('Админов', 'Андрей', 3, 2);

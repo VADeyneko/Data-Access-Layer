@@ -41,9 +41,10 @@ import javax.persistence.Table;
     )        
    ,@NamedQuery(
             name = "get-owner-intersecting-requests",
-            query = "SELECT r FROM Request r  where   r.isHistoryEntity = 0"
+            query = "SELECT r FROM Request r  where   r.isHistoryEntity = 0 "
              //       + " and r <> :req "
                     + " and r.owner = :owner"
+                    + "  and r.requestState.id <> 4 "
                     + " and (r.dateBegin   between :dDateBegin and :dDateEnd"
                     + " or r.dateEnd   between :dDateBegin and :dDateEnd"
                     + " or :dDateEnd between r.dateBegin and r.dateEnd"

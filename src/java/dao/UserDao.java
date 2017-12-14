@@ -34,13 +34,8 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    public User find(Object id) {
-        try {
-            return super.find(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return super.find(id);
+    public User find(Object id) {         
+            return super.find(id);      
     }
 
     public boolean exists(Credentials credentials) {

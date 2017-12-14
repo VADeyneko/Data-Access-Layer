@@ -33,11 +33,7 @@ public class UserGroupDao  extends AbstractDao<UserGroup>{
 
     @Override
     public UserGroup find(Object id) {        
-        try{
-         return super.find(id);
-        }catch (Exception e) {
-            e.printStackTrace();
-    }
+       
          return super.find(id);
     }
     

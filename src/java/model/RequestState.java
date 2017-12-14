@@ -17,9 +17,7 @@ import javax.persistence.NamedQuery;
 
 /**
  *
- Класс хранит состояния заявки, а также карту перехода между состояниями 
- * (через ссылку на прошлое и следующее состояние, кот. может быть пустой)
- * сделано в виде сущности с хренением в БД (целостность данных, удобство добавления и настройки)
+ * Class stores vacation request states and transition map
  */
 @Entity
 @NamedQueries({
@@ -30,9 +28,11 @@ public class RequestState implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private static final ResourceBundle PREDEFINED_ELEMENTS;
+    private static final ResourceBundle PREDEFINED_ELEMENTS, MESSAGES;
     static {
         PREDEFINED_ELEMENTS = ResourceBundle.getBundle("resources.elements");
+        MESSAGES = ResourceBundle.getBundle("resources.messages");
+        
     }
 
     @Id
@@ -42,8 +42,14 @@ public class RequestState implements Serializable {
     @Column(name = "name",unique = true)
     private String name;
     
+    @Column(name = "msg_subj",unique = false)
+    private String messageSubject;
+    
+    @Column(name = "msg_body",unique = false)
+    private String messageBody;
+    
     @Column(name = "isManagerState",unique = false)
-    private int isManagerState;
+    private boolean isManagerState;
     
    @Column(name = "glyphoiconName",unique = false)
     private String  glyphoiconName;
@@ -55,18 +61,28 @@ public class RequestState implements Serializable {
         return possibleStates;
     } 
 
+    public String getMessageSubject() {
+        return MESSAGES.getString(messageSubject);
+    }
+
+    public String getMessageBody() {
+        return MESSAGES.getString(messageBody);
+    }
+    
+    
+
     /*method is overloaded for getting manager-only or user-only states*/
     public Collection<RequestState> getPossibleStates(boolean byManager) {
        Collection<RequestState> stateList = new LinkedList<>();
        
        if(byManager)
             for(RequestState s : possibleStates){
-                if(s.isManagerState == 1 ||possibleStates.size() == 1)  //для менеджера - минимум 1 состояние доступно
+                if(s.isManagerState  ||possibleStates.size() == 1)  //для менеджера - минимум 1 состояние доступно
                      stateList.add(s);
            
         } else {
             for(RequestState s : possibleStates){
-                 if(s.isManagerState == 0 && this.isManagerState == 0)  //для не менджера - более 2х состояний только в черновике
+                 if(!s.isManagerState  && !this.isManagerState  )  //для не менджера - более 2х состояний только в черновике
                       stateList.add(s);                                              
              }       
        } 
@@ -81,7 +97,7 @@ public class RequestState implements Serializable {
         this.id = id;
     }
 
-    public int getIsManagerState() {
+    public boolean getIsManagerState() {
         return isManagerState;
     }
 

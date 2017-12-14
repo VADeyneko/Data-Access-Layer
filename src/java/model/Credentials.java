@@ -49,8 +49,8 @@ public class Credentials implements Serializable {
     }
     
     public boolean equals(Credentials credentials) {
-        return  email.equals(credentials.email) && 
-                password.equals(credentials.password);
+        return  email.equals(credentials.email) /*&& 
+                password.equals(credentials.password)*/;
     }
     
 } 
